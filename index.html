@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
+  <title>Happy Birthday, Jie. 생일 축하해요</title>
+  
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><circle cx=%2250%22 cy=%2250%22 r=%2245%22 fill=%22%23000000%22/></svg>">
+  
+  <!-- Google Fonts: Space Grotesk, Inter, Gaegu -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bw-theme">
+
+  <!-- Floating Sparkles Canvas (Monochrome stars & particles) -->
+  <canvas id="sparklesCanvas"></canvas>
+
+  <!-- Sound Toggle Button -->
+  <button id="soundToggleBtn" class="sound-toggle-btn" aria-label="Toggle sound">
+    <span class="sound-label">Sound On</span>
+  </button>
+
+
+  <!-- ========================================== -->
+  <!-- INTRO SCREEN: MINIMALIST GIFT BOX          -->
+  <!-- ========================================== -->
+  <div id="giftIntroOverlay" class="gift-intro-overlay">
+    <div class="gift-container">
+      <!-- Minimalist Black & White Gift Box -->
+      <div id="interactiveGiftBox" class="gift-box" role="button" tabindex="0" aria-label="Open Birthday Surprise">
+        <div class="gift-lid">
+          <div class="gift-bow">
+            <div class="bow-loop bow-left"></div>
+            <div class="bow-loop bow-right"></div>
+            <div class="bow-knot"></div>
+          </div>
+          <div class="lid-stripe"></div>
+        </div>
+        <div class="gift-body">
+          <div class="body-stripe-v"></div>
+          <div class="body-stripe-h"></div>
+          <div class="gift-tag">
+            <span>To: <strong id="tagRecipientName">Jie</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ========================================== -->
+  <!-- MAIN CONTAINER (PAGE 1 & PAGE 2)           -->
+  <!-- ========================================== -->
+  <main id="mainCelebration" class="celebration-container hidden">
+
+    <!-- ========================================== -->
+    <!-- PAGE 1: CELEBRATION, MUSIC & CAKE          -->
+    <!-- ========================================== -->
+    <div id="pageCelebration" class="page-view active">
+      
+      <!-- HERO GREETING -->
+      <section class="section hero-section">
+        <div class="hangul-pill" id="koreanGreetingPill">
+          <span class="hangul-text" id="koreanGreeting">생일 축하해요!</span>
+        </div>
+
+        <h1 class="celebration-title" id="celebrationTitle">
+          Happy Birthday, <span class="highlight-name" id="heroRecipientName">Jie</span>.
+        </h1>
+        
+        <p class="celebration-desc" id="celebrationSubtitle">
+          Wishing you the happiest and sweetest birthday.
+        </p>
+
+        <!-- Minimalist Cat Greeting Frame -->
+        <div class="gif-wrapper">
+          <div class="cat-speech-bubble">"생일 축하해요 Jie"</div>
+          <img 
+            id="heroGif" 
+            class="cute-gif" 
+            src="https://media.giphy.com/media/s4LzrsdXzm9MYVSzw8/giphy.gif" 
+            alt="Cat celebrating Happy Birthday"
+            loading="eager"
+          >
+          <div class="gif-fallback" id="heroGifFallback">
+            <div class="cat-face-clean">🐱</div>
+            <p>Happy Birthday Jie.</p>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- KOREAN BIRTHDAY SONG (DISC PLAYER + SYNCED LYRICS) -->
+      <section class="section music-section">
+        <div class="section-card music-card">
+          <div class="card-header-clean">
+            <h2 class="card-title">Korean Birthday Song</h2>
+            <p class="card-subtitle">생일 축하 노래 • Sing along</p>
+          </div>
+
+          <!-- Vinyl Disc & Track Info -->
+          <div class="audio-player-box">
+            <div class="vinyl-disc" id="vinylDisc">
+              <div class="vinyl-groove"></div>
+              <div class="vinyl-center"></div>
+            </div>
+
+            <!-- Synchronized Real-time Lyrics Display -->
+            <div class="synced-lyrics-box" id="lyricsBox">
+              <div class="lyrics-lines" id="lyricsLines">
+                <!-- Injected & Highlighted by script.js -->
+              </div>
+            </div>
+
+            <!-- Progress Bar -->
+            <div class="player-progress-container">
+              <span class="player-time" id="playerCurrentTime">0:00</span>
+              <div class="player-progress-bar" id="playerProgressBar" role="slider" aria-label="Audio progress">
+                <div class="player-progress-fill" id="playerProgressFill"></div>
+              </div>
+              <span class="player-time" id="playerDuration">0:22</span>
+            </div>
+
+            <!-- Play / Pause Controls -->
+            <div class="player-controls">
+              <button id="audioPlayBtn" class="cute-btn primary-btn player-main-btn" aria-label="Play song">
+                Play Song
+              </button>
+            </div>
+
+            <!-- HTML5 Local Audio File (Overwritten with new YouTube short) -->
+            <audio id="birthdayAudio" preload="auto">
+              <source src="birthday-song.webm" type="audio/webm">
+              <source src="birthday-song.m4a" type="audio/mp4">
+            </audio>
+          </div>
+
+          <!-- Video Fallback Link -->
+          <div class="video-fallback-bar">
+            <a id="directYoutubeLink" class="video-fallback-link" href="https://www.youtube.com/shorts/tSzsjx-i5vY" target="_blank" rel="noopener noreferrer">
+              Watch the official short on YouTube
+            </a>
+          </div>
+        </div>
+      </section>
+
+
+      <!-- INTERACTIVE BIRTHDAY CAKE & TICKET PULL -->
+      <section class="section cake-section">
+        <div class="section-card cake-card">
+          <div class="card-header-clean">
+            <h2 class="card-title">Make a Wish</h2>
+            <p class="card-subtitle">Tap the candles to blow them out</p>
+          </div>
+
+          <!-- Minimalist Line-Art Cake -->
+          <div class="cake-stage" id="cakeStage" role="button" tabindex="0" aria-label="Tap candles to blow them out">
+            <div class="candles-rack">
+              <div class="candle candle-1">
+                <div class="flame" id="flame1">
+                  <div class="flame-glow"></div>
+                  <div class="flame-core"></div>
+                </div>
+                <div class="smoke" id="smoke1"></div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick stick-mono-1"></div>
+              </div>
+
+              <div class="candle candle-2">
+                <div class="flame" id="flame2">
+                  <div class="flame-glow"></div>
+                  <div class="flame-core"></div>
+                </div>
+                <div class="smoke" id="smoke2"></div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick stick-mono-2"></div>
+              </div>
+
+              <div class="candle candle-3">
+                <div class="flame" id="flame3">
+                  <div class="flame-glow"></div>
+                  <div class="flame-core"></div>
+                </div>
+                <div class="smoke" id="smoke3"></div>
+                <div class="candle-wick"></div>
+                <div class="candle-stick stick-mono-3"></div>
+              </div>
+            </div>
+
+            <div class="cake-graphic">
+              <div class="cake-top-tier">
+                <div class="cream-dollops-row">
+                  <span class="cream-dollop"></span>
+                  <span class="cream-dollop"></span>
+                  <span class="cream-dollop"></span>
+                  <span class="cream-dollop"></span>
+                  <span class="cream-dollop"></span>
+                </div>
+                <div class="frosting-icing">
+                  <div class="drip drip-1"></div>
+                  <div class="drip drip-2"></div>
+                  <div class="drip drip-3"></div>
+                </div>
+              </div>
+
+              <div class="cake-base-tier">
+                <div class="sponge-cream-stripe"></div>
+              </div>
+
+              <div class="cake-stand">
+                <div class="stand-plate"></div>
+                <div class="stand-foot"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Blow Candle Button -->
+          <div class="cake-action-container">
+            <button id="blowCandlesBtn" class="cute-btn secondary-btn">
+              Blow Candles
+            </button>
+          </div>
+
+          <!-- Wish Granted & Ticket Pull (Next Page Trigger) -->
+          <div id="wishGrantedContainer" class="wish-granted-container hidden">
+            <div class="wish-granted-badge">
+              <h3 class="wish-title">Wish granted— Claim it now!</h3>
+            </div>
+
+            <!-- Interactive Pull / Drag Ticket -->
+            <div class="ticket-pull-box">
+              <p class="ticket-prompt">Pull or tap the ticket to open the next page</p>
+              
+              <div id="birthdayTicket" class="birthday-ticket" role="button" tabindex="0" aria-label="Pull ticket to go to next page">
+                <div class="ticket-stub-left">
+                  <span class="ticket-badge">VIP BIRTHDAY PASS</span>
+                  <h4 class="ticket-recipient">For Jie</h4>
+                  <p class="ticket-desc">Balloons & Birthday Letter</p>
+                </div>
+                <div class="ticket-perforation">
+                  <div class="ticket-notch notch-top"></div>
+                  <div class="ticket-dashed-line"></div>
+                  <div class="ticket-notch notch-bottom"></div>
+                </div>
+                <div class="ticket-stub-right" id="ticketPullHandle">
+                  <div class="ticket-pull-track">
+                    <span class="ticket-pull-arrow">→</span>
+                    <span class="ticket-pull-label">PULL</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+
+
+    <!-- ========================================== -->
+    <!-- PAGE 2: BALLOONS WITH PAPER WISH SLIP & LETTER -->
+    <!-- ========================================== -->
+    <div id="pageWishesAndLetter" class="page-view hidden">
+      
+      <!-- Back Navigation Bar -->
+      <div class="page-nav-bar">
+        <button id="backToCakeBtn" class="back-link-btn">
+          ← Back to Song & Cake
+        </button>
+      </div>
+
+      <!-- THREE INTERACTIVE BALLOONS (POPS TO WRITE PERSONAL WISHES) -->
+      <section class="section balloons-section">
+        <div class="section-card balloons-card">
+          <div class="card-header-clean">
+            <h2 class="card-title">Three Birthday Wishes</h2>
+            <p class="card-subtitle">Tap each balloon to pop it and write your wish!</p>
+          </div>
+
+          <!-- Row of 3 Floating Balloons -->
+          <div class="balloons-row" id="balloonsRow">
+            <!-- Balloon 1 -->
+            <div class="balloon-unit" data-wish-id="1" id="balloonUnit1">
+              <div class="balloon-item" id="balloonItem1" role="button" tabindex="0" aria-label="Pop Balloon 1">
+                <div class="balloon balloon-mono-1" id="balloonGraphic1">
+                  <div class="balloon-shine"></div>
+                  <div class="balloon-knot"></div>
+                  <div class="balloon-string"></div>
+                </div>
+              </div>
+              <span class="balloon-tag" id="balloonTag1">Balloon 01</span>
+              <span class="balloon-status" id="balloonStatus1">x0</span>
+            </div>
+
+            <!-- Balloon 2 -->
+            <div class="balloon-unit" data-wish-id="2" id="balloonUnit2">
+              <div class="balloon-item" id="balloonItem2" role="button" tabindex="0" aria-label="Pop Balloon 2">
+                <div class="balloon balloon-mono-2" id="balloonGraphic2">
+                  <div class="balloon-shine"></div>
+                  <div class="balloon-knot"></div>
+                  <div class="balloon-string"></div>
+                </div>
+              </div>
+              <span class="balloon-tag" id="balloonTag2">Balloon 02</span>
+              <span class="balloon-status" id="balloonStatus2">x0</span>
+            </div>
+
+            <!-- Balloon 3 -->
+            <div class="balloon-unit" data-wish-id="3" id="balloonUnit3">
+              <div class="balloon-item" id="balloonItem3" role="button" tabindex="0" aria-label="Pop Balloon 3">
+                <div class="balloon balloon-mono-3" id="balloonGraphic3">
+                  <div class="balloon-shine"></div>
+                  <div class="balloon-knot"></div>
+                  <div class="balloon-string"></div>
+                </div>
+              </div>
+              <span class="balloon-tag" id="balloonTag3">Balloon 03</span>
+              <span class="balloon-status" id="balloonStatus3">x0</span>
+            </div>
+          </div>
+
+          <!-- Instructional hint before popping -->
+          <div class="balloons-hint" id="balloonsHint">
+            Tap a balloon 4 times to pop it and reveal your wish paper!
+          </div>
+
+          <!-- Dropped Paper Wish Slips Container (Where Jie types her wishes) -->
+          <div class="slips-container" id="slipsContainer">
+
+            <!-- Paper Wish Slip 1 -->
+            <div class="paper-wish-slip hidden" id="paperWishSlip1" data-wish-id="1">
+              <div class="slip-pin"></div>
+              <div class="slip-header">
+                <span class="slip-tag" id="slipTag1">Wish 01</span>
+                <h4 class="slip-title" id="slipTitle1">First Birthday Wish</h4>
+              </div>
+
+              <!-- Write Mode: Jie types her wish here -->
+              <div class="slip-write-mode" id="writeMode1">
+                <textarea 
+                  class="wish-textarea" 
+                  id="wishInput1" 
+                  placeholder="Write your wish for yourself and peace of mind here, Jie..." 
+                  maxlength="250"
+                  rows="3"
+                ></textarea>
+                <div class="slip-button-row">
+                  <button class="cute-btn primary-btn slip-save-btn" data-wish="1">Seal this Wish ✨</button>
+                </div>
+              </div>
+
+              <!-- Sealed Mode: Displays her sealed wish -->
+              <div class="slip-sealed-mode hidden" id="sealedMode1">
+                <blockquote class="sealed-wish-text" id="sealedText1"></blockquote>
+                <div class="sealed-status-badge">Wish Sealed ✨</div>
+                <div class="sealed-actions-row">
+                  <button class="slip-link-btn slip-edit-btn" data-wish="1">Edit wish</button>
+                  <span class="action-divider">•</span>
+                  <button class="slip-link-btn slip-reset-btn" data-reset="1">Pop balloon again</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paper Wish Slip 2 -->
+            <div class="paper-wish-slip hidden" id="paperWishSlip2" data-wish-id="2">
+              <div class="slip-pin"></div>
+              <div class="slip-header">
+                <span class="slip-tag" id="slipTag2">Wish 02</span>
+                <h4 class="slip-title" id="slipTitle2">Second Birthday Wish</h4>
+              </div>
+
+              <!-- Write Mode: Jie types her wish here -->
+              <div class="slip-write-mode" id="writeMode2">
+                <textarea 
+                  class="wish-textarea" 
+                  id="wishInput2" 
+                  placeholder="Write your goals, dreams, or career wish for this year..." 
+                  maxlength="250"
+                  rows="3"
+                ></textarea>
+                <div class="slip-button-row">
+                  <button class="cute-btn primary-btn slip-save-btn" data-wish="2">Seal this Wish ✨</button>
+                </div>
+              </div>
+
+              <!-- Sealed Mode: Displays her sealed wish -->
+              <div class="slip-sealed-mode hidden" id="sealedMode2">
+                <blockquote class="sealed-wish-text" id="sealedText2"></blockquote>
+                <div class="sealed-status-badge">Wish Sealed ✨</div>
+                <div class="sealed-actions-row">
+                  <button class="slip-link-btn slip-edit-btn" data-wish="2">Edit wish</button>
+                  <span class="action-divider">•</span>
+                  <button class="slip-link-btn slip-reset-btn" data-reset="2">Pop balloon again</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Paper Wish Slip 3 -->
+            <div class="paper-wish-slip hidden" id="paperWishSlip3" data-wish-id="3">
+              <div class="slip-pin"></div>
+              <div class="slip-header">
+                <span class="slip-tag" id="slipTag3">Wish 03</span>
+                <h4 class="slip-title" id="slipTitle3">Third Birthday Wish</h4>
+              </div>
+
+              <!-- Write Mode: Jie types her wish here -->
+              <div class="slip-write-mode" id="writeMode3">
+                <textarea 
+                  class="wish-textarea" 
+                  id="wishInput3" 
+                  placeholder="A secret birthday wish from your heart—make it yours!" 
+                  maxlength="250"
+                  rows="3"
+                ></textarea>
+                <div class="slip-button-row">
+                  <button class="cute-btn primary-btn slip-save-btn" data-wish="3">Seal this Wish ✨</button>
+                </div>
+              </div>
+
+              <!-- Sealed Mode: Displays her sealed wish -->
+              <div class="slip-sealed-mode hidden" id="sealedMode3">
+                <blockquote class="sealed-wish-text" id="sealedText3"></blockquote>
+                <div class="sealed-status-badge">Wish Sealed ✨</div>
+                <div class="sealed-actions-row">
+                  <button class="slip-link-btn slip-edit-btn" data-wish="3">Edit wish</button>
+                  <span class="action-divider">•</span>
+                  <button class="slip-link-btn slip-reset-btn" data-reset="3">Pop balloon again</button>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+
+      <!-- SWEET TAGLISH BIRTHDAY LETTER ENVELOPE -->
+      <section class="section letter-section">
+        <div class="section-card letter-card">
+          <div class="card-header-clean">
+            <h2 class="card-title">A Letter for You</h2>
+            <p class="card-subtitle">Tap the envelope to read your letter</p>
+          </div>
+
+          <!-- Minimalist Envelope -->
+          <div class="envelope-wrapper" id="envelopeWrapper">
+            <div class="envelope" id="interactiveEnvelope" role="button" tabindex="0" aria-label="Open Birthday Letter">
+              <div class="envelope-flap" id="envelopeFlap"></div>
+              
+              <div class="envelope-pocket">
+                <div class="pocket-left"></div>
+                <div class="pocket-right"></div>
+                <div class="pocket-bottom"></div>
+              </div>
+
+              <!-- Minimalist Monochrome Wax Stamp -->
+              <div class="wax-seal" id="waxSeal">
+                <div class="seal-inner-circle"></div>
+              </div>
+
+              <!-- Sliding Letter Paper -->
+              <div class="paper-letter" id="paperLetter">
+                <div class="letter-inner-content">
+                  <div class="letter-top-row">
+                    <span class="letter-badge" id="letterTag">A note for you</span>
+                    <span class="letter-date">Happy Birthday</span>
+                  </div>
+
+                  <h3 class="letter-salutation" id="letterSalutation">Dearest Jie,</h3>
+
+                  <div class="letter-body-paragraphs" id="letterParagraphs">
+                    <!-- Populated from config.js -->
+                  </div>
+
+                  <div class="letter-closing">
+                    <p id="letterClosing">Always rooting for you with all my heart,</p>
+                    <p class="letter-signature" id="letterSignature">From someone who cares for you</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Envelope Button -->
+          <div class="envelope-controls">
+            <button id="toggleLetterBtn" class="cute-btn primary-btn">
+              Open Envelope
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+
+      <!-- FOOTER -->
+      <footer class="celebration-footer">
+        <button id="extraConfettiBtn" class="cute-btn extra-confetti-btn">
+          Shower Confetti
+        </button>
+
+        <p class="footer-text">
+          Happy Birthday, <span id="footerRecipientName">Jie</span>. • 생일 축하합니다
+        </p>
+      </footer>
+
+    </div>
+
+  </main>
+
+  <!-- Configuration & Script Files -->
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

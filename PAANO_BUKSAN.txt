@@ -1,0 +1,18 @@
+=====================================================
+🖤 HAPPY BIRTHDAY, JIE (BLACK & WHITE MINIMALIST)
+=====================================================
+
+FOLDER LOCATION SA DESKTOP:
+C:\Users\Yasy\Desktop\jie-birthday-website
+
+PAANO BUKSAN:
+1. I-double click ang file na: index.html
+
+MGA BAGONG FEATURES:
+1. Intro: Gift box na lang na may "To: Jie" sa unahan (tinanggal ang text messages).
+2. All UI in English: Lahat ng buttons, labels, at instructions ay nasa malinis na English.
+3. Balloons Game Hitbox: Bawat tap sa lobo ay may lumalabas na game combo popup: x1, x2, x3, at x4 CRITICAL POP!
+4. Balloon Wish Writing: Si Jie mismo ang magsusulat ng wishes niya at magse-seal ("Seal this Wish ✨").
+5. Spinning Vinyl Disc na may real-time Synced Lyrics.
+6. Candle blow out at tactile ticket pull papuntang Page 2.
+7. Sobre na may wax seal na naglalaman ng iyong buong sulat para kay Jie.
